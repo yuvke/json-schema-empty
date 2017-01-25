@@ -1,6 +1,8 @@
 import deref from 'simple-json-schema-deref';
 import merge from './merge';
 
+var $RefParser = require('json-schema-ref-parser');
+
 var empty;
 
 // array <<
@@ -52,7 +54,7 @@ var _null = function() {
 };
 // >>
 
-// object <<
+/*// object <<
 var _object = function(schema, global) {
   var {
     required
@@ -73,6 +75,30 @@ var _object = function(schema, global) {
         return prev;
       }, {});
   }
+};
+// >>*/
+
+
+// object <<
+var _object = function(schema, global) {
+  var {
+    properties
+  } = schema;
+  if (!properties) {
+    return {};
+  }
+  
+  return Object.keys(properties)
+    .reduce(function(prev, next) {
+      console.log(next);
+      var s = properties[next];
+      if (s['x-hidden'] === true) {
+        return prev;
+      }
+      prev[next] = empty(s, global);
+      return prev;
+    }, {});
+
 };
 // >>
 
@@ -160,8 +186,14 @@ empty = function(schema, global) {
 // >>
 
 var make = function(schema) {
-  var s = deref(schema);
-  return empty(s, s);
+  return $RefParser.dereference(schema)
+  .then(s => {
+    return empty(s, s);
+  })
+  .catch(err => {
+    console.error(err);
+  });
+  
 };
 
 export default make;
