@@ -104,7 +104,6 @@ var _object = function _object(schema, global) {
   }
 
   return Object.keys(properties).reduce(function (prev, next) {
-    console.log(next);
     var s = properties[next];
     if (s['x-hidden'] === true) {
       return prev;
