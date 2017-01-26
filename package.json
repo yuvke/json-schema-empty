@@ -1,5 +1,5 @@
 {
-  "name": "json-schema-empty",
+  "name": "json-schema-empty-forked",
   "version": "1.1.1",
   "description": "",
   "main": "build/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/romeovs/json-schema-empty.git"
+    "url": "https://github.com/yuvke/json-schema-empty.git"
   },
   "author": "Romeo Van Snick <romeovs@gmail.com>",
   "license": "ISC",
